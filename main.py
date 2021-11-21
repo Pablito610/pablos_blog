@@ -65,28 +65,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     owner_post = relationship("BlogPost", back_populates="post_comments")
 
-db.create_all()
 
-# db.session.add(
-#   BlogPost(
-#     author="Angela Yu",
-#     title="Life of Cactus",
-#     subtitle="Who knew cacti lives such interesting lives",
-#     date="October 20, 2021",
-#     body="<p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery.</p><p>Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip.</p><p>Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley j&iacute;cama salsify.</p>",
-#     img_url="https://images.unsplash.com/photo-1530482054429-cc491f61333b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80",
-#     )
-# )
-# db.session.add(
-#     User(
-#         email="ppt@ppt.com",
-#         password="asdf",
-#         username="ppt",
-#
-#     )
-# )
-#
-# db.session.commit()
+db.create_all()
 
 
 ## decorators
@@ -124,7 +104,7 @@ def register():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
-            flash(f"This email already exists. Please login instead", "danger")
+            flash("This email already exists. Please login instead", "danger")
             return redirect(url_for("login"))
         else:
             new_user = User(
@@ -149,10 +129,10 @@ def login():
                 login_user(user)
                 return redirect(url_for("get_all_posts"))
             else:
-                flash(f"Your password is incorrect. Please try again", "danger")
+                flash("Your password is incorrect. Please try again", "danger")
                 return redirect(url_for("login"))
         else:
-            flash(f"This email is not registered. Please try again or sign up", "danger")
+            flash("This email is not registered. Please try again or sign up", "danger")
             return redirect(url_for("login"))
     return render_template("login.html", form=form, logged_in=current_user.is_authenticated)
 
